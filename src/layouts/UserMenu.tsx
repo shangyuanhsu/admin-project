@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../stores/hooks';
-import { logout } from '../../features/auth/authSlice';
+import { useAppSelector, useAppDispatch } from '../stores/hooks';
+import { logout } from '../features/auth/authSlice';
 import styles from './Layout.module.css'; // Use layout styles for avatar/userinfo
 import menuStyles from './UserMenu.module.css'; // Specific menu styles
 

@@ -1,5 +1,5 @@
-import { useAppDispatch } from '../../stores/hooks';
-import { toggleSidebar } from '../../stores/uiSlice';
+import { useAppDispatch } from '../stores/hooks';
+import { toggleSidebar } from '../stores/uiSlice';
 import styles from './Layout.module.css';
 import { UserMenu } from './UserMenu';
 

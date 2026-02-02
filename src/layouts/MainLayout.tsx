@@ -2,9 +2,9 @@ import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { Footer } from './Footer';
-import { BackToTop } from '../BackToTop/BackToTop';
+import { BackToTop } from '../components/BackToTop/BackToTop';
 import styles from './Layout.module.css';
-import { useAppSelector } from '../../stores/hooks';
+import { useAppSelector } from '../stores/hooks';
 
 export const MainLayout = () => {
   const { isSidebarOpen } = useAppSelector(state => state.ui);

@@ -1,6 +1,6 @@
 import styles from './Layout.module.css';
 import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../stores/hooks';
+import { useAppSelector } from '../stores/hooks';
 
 const navItems = [
   { label: 'Dashboard', path: '/' },

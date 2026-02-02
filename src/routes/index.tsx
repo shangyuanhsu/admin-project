@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { ProtectedRoute } from './ProtectedRoute';
-import { MainLayout } from '../components/Layout';
+import { MainLayout } from '../layouts';
 import { GlobalLoading } from '../components/Loading';
 import { ScrollToTop } from '../components/ScrollToTop';
 
