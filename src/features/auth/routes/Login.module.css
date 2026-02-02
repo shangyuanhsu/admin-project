@@ -1,0 +1,127 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  color: var(--text-main);
+}
+
+.header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.025em;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 64px; /* Space for fixed header */
+}
+
+/* Form Styles */
+.formCard {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  background-color: var(--surface-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.formTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.formSubtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.captchaRow {
+  display: flex;
+  gap: 0.75rem;
+  /* Align items at the bottom so the input field and image match up, regardless of label height */
+  align-items: flex-end; 
+}
+
+.captchaInput {
+  flex: 1;
+  /* Remove bottom margin from Input component wrapper if present affecting alignment */
+  margin-bottom: 0; 
+}
+
+/* Because Input component has a margin-bottom of 1rem by default */
+.captchaInput :global(.Input_container) {
+  margin-bottom: 0;
+}
+
+.captchaVisual {
+  height: 46px; /* Matches the standard input height */
+  width: 120px;
+  background-color: var(--surface-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 1.25rem;
+  letter-spacing: 0.25em;
+  /* Margin-bottom to match Input component's internal spacing if needed, but flex-end handles it better */
+  margin-bottom: 1rem; /* Match Input's margin-bottom which is 1rem */
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0; /* Remove negative margin used previously */
+}
+
+.forgotPassword {
+  font-size: 0.875rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  cursor: pointer;
+  
+  /* Add padding to make it easier to click and align visually */
+  padding: 0.25rem 0; 
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+/* Button styles are now handled by the Button component */
