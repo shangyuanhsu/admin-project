@@ -95,6 +95,7 @@ export const loginWithCredentials = async (credentials: LoginCredentials): Promi
       },
       { label: 'Profile', path: '/profile' },
       { label: 'Reports', path: '/reports' },
+      { label: 'Components', path: '/components' },
     ],
   };
 };

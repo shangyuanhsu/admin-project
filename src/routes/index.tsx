@@ -8,14 +8,18 @@ import { ScrollToTop } from '../components/ScrollToTop';
 // Lazy Load Pages
 const Login = lazy(() => import('../pages/auth/Login').then(module => ({ default: module.Login })));
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard').then(module => ({ default: module.Dashboard })));
+const Components = lazy(() => import('../pages/components/Components').then(module => ({ default: module.Components })));
+const NotFound = lazy(() => import('../pages/NotFound').then(module => ({ default: module.NotFound })));
 
 // Root Layout to include global listeners like ScrollToTop
-const RootLayout = () => (
-  <>
-    <ScrollToTop />
-    <Outlet />
-  </>
-);
+const RootLayout = () => {
+  return (
+    <>
+      <ScrollToTop />
+      <Outlet />
+    </>
+  );
+};
 
 export const AppRoutes = () => {
   const router = createBrowserRouter([
@@ -46,11 +50,23 @@ export const AppRoutes = () => {
                 </Suspense>
               ),
             },
+            {
+              path: 'components',
+              element: (
+                <Suspense fallback={<GlobalLoading />}>
+                  <Components />
+                </Suspense>
+              ),
+            },
           ],
         },
         {
           path: '*',
-          element: <div>404 Not Found</div>
+          element: (
+            <Suspense fallback={<GlobalLoading />}>
+              <NotFound />
+            </Suspense>
+          ),
         }
       ]
     }
