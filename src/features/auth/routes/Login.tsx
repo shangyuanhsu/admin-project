@@ -94,7 +94,8 @@ export const Login = () => {
       // 2. Dispatch to Redux Store
       dispatch(loginSuccess({
         token: response.token,
-        user: response.user
+        user: response.user,
+        menus: response.menus
       }));
 
       // 3. Navigate to Dashboard

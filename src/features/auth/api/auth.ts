@@ -24,6 +24,14 @@ interface LoginResponse {
     name: string;
     email: string;
   };
+  /** List of menus accessible by the user */
+  menus: MenuItem[];
+}
+
+interface MenuItem {
+  label: string;
+  path: string;
+  children?: MenuItem[];
 }
 
 /**
@@ -68,5 +76,25 @@ export const loginWithCredentials = async (credentials: LoginCredentials): Promi
       name: 'Admin User',
       email: credentials.account,
     },
+    menus: [
+      { label: 'Dashboard', path: '/' },
+      { 
+        label: 'System', 
+        path: '/system',
+        children: [
+          { label: 'Settings', path: '/settings' },
+          { 
+            label: 'User Management', 
+            path: '/users',
+            children: [
+              { label: 'Active Users', path: '/users/active' },
+              { label: 'Banned Users', path: '/users/banned' }
+            ]
+          }
+        ]
+      },
+      { label: 'Profile', path: '/profile' },
+      { label: 'Reports', path: '/reports' },
+    ],
   };
 };
