@@ -16,7 +16,7 @@
   left: 0;
   padding: 1rem;
   transition: transform 0.3s ease, width 0.3s ease;
-  z-index: 20;
+  z-index: 40; /* Increased z-index */
 }
 
 .sidebarItemInteractive:hover {
@@ -107,6 +107,10 @@
   font-weight: 500;
 }
 
+.userInfo span {
+  display: block;
+}
+
 .avatar {
   width: 36px;
   height: 36px;
@@ -118,4 +122,56 @@
   color: white;
   font-weight: 600;
   font-size: 0.875rem;
+}
+
+/* --- Media Queries --- */
+
+@media (max-width: 1024px) {
+  .pageContent {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    top: 64px;
+    height: calc(100vh - 64px);
+    width: 100%; /* Full width or fixed width? Fixed is better for drawer feel, max-width 100% */
+    max-width: 280px; 
+    box-shadow: var(--shadow-lg);
+  }
+
+  .mainContent {
+    margin-left: 0; /* Always 0 on mobile, sidebar overlays */
+  }
+
+  .pageContent {
+    padding: 0.5rem;
+  }
+
+  .header {
+    padding: 0 1rem;
+  }
+
+  .userInfo span {
+    display: none; /* Hide name on mobile to save space */
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 64px; /* Start below the header */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 35;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Show backdrop when sidebar open logic is handled in React */
+  .backdropVisible {
+    display: block;
+  }
 }

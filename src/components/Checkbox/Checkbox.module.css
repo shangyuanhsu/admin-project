@@ -1,0 +1,77 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  font-size: 1rem;
+  color: var(--text-main);
+  transition: opacity 0.2s;
+}
+
+.container.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Hide the native checkbox but keep it accessible */
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Custom Checkbox Design */
+.checkmark {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--surface-color);
+  border-radius: 4px; /* Slightly rounded */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover state (Unchecked) */
+.container:hover:not(.disabled) .input:not(:checked) + .checkmark {
+  border-color: var(--primary-color);
+  background-color: var(--background-color);
+}
+
+/* Checked State */
+.input:checked + .checkmark {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+/* Hover state (Checked) */
+.container:hover:not(.disabled) .input:checked + .checkmark {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* Focus State */
+.input:focus-visible + .checkmark {
+  box-shadow: 0 0 0 2px var(--background-color), 0 0 0 4px var(--primary-color);
+}
+
+/* SVG Icon styles */
+.icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:checked + .checkmark .icon {
+  transform: scale(1);
+}
+
+.label {
+  font-weight: 500;
+}

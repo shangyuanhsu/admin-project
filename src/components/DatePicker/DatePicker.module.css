@@ -1,0 +1,42 @@
+.dateIcon {
+  /* Attempt to style the native calendar icon if possible */
+  color: var(--text-secondary);
+}
+
+/* 
+ * Ensure the date picker feels vertically aligned with other inputs 
+ * Native date inputs can sometimes have different default heights/paddings
+ */
+::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.rangeContainer {
+  display: flex;
+  align-items: flex-start; /* Align top in case of error messages */
+  gap: 1rem;
+  width: 100%;
+}
+
+.rangeSeparator {
+  padding-top: 2.3rem; /* Push down to align with input center (Label 21px + Gap 8px + Half Input 21px - Half Text 12px ≈ 38px) */
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .rangeContainer {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .rangeSeparator {
+    display: none;
+  }
+}

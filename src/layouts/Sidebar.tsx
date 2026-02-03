@@ -5,12 +5,20 @@ import { useAppSelector, useAppDispatch } from '../stores/hooks';
 import { logout } from '../features/auth/authSlice';
 import type { MenuItem } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { closeSidebar } from '../stores/uiSlice';
 
 const SidebarItem = ({ item, depth = 0 }: { item: MenuItem; depth?: number }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const hasChildren = item.children && item.children.length > 0;
   
   const paddingLeft = `${0.75 + depth * 1.5}rem`;
+
+  const handleItemClick = () => {
+    if (window.innerWidth < 1024) {
+      dispatch(closeSidebar());
+    }
+  };
 
   if (hasChildren) {
     return (
@@ -47,6 +55,7 @@ const SidebarItem = ({ item, depth = 0 }: { item: MenuItem; depth?: number }) =>
   return (
     <NavLink
       to={item.path}
+      onClick={handleItemClick}
       style={({ isActive }) => ({
         padding: `0.75rem 1rem 0.75rem ${paddingLeft}`,
         borderRadius: '8px',
@@ -82,7 +91,7 @@ export const Sidebar = () => {
 
   return (
     <aside className={`${styles.sidebar} ${!isSidebarOpen ? styles.sidebarClosed : ''}`}>
-      <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto' }}>
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto', paddingRight: '0.5rem' }}>
         {menuList.length === 0 ? (
            <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
              <p style={{ marginBottom: '1rem', fontSize: '0.875rem' }}>

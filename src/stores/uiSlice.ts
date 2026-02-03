@@ -5,7 +5,8 @@ interface UiState {
 }
 
 const initialState: UiState = {
-  isSidebarOpen: true, // Default to open
+  // Default to open only on larger screens (>= 1024px)
+  isSidebarOpen: typeof window !== 'undefined' ? window.innerWidth >= 1024 : true,
 };
 
 export const uiSlice = createSlice({
