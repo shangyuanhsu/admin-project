@@ -6,6 +6,8 @@ import { Radio } from '../../components/Radio/Radio';
 import { DatePicker, DateRangePicker } from '../../components/DatePicker/DatePicker';
 import { Tabs } from '../../components/Tabs';
 import { Accordion } from '../../components/Accordion';
+import { Table, type Column } from '../../components/Table';
+import { Pagination } from '../../components/Pagination';
 import { useState } from 'react';
 
 export const Components = () => {
@@ -16,6 +18,8 @@ export const Components = () => {
   const [startDateTime, setStartDateTime] = useState('');
   const [endDateTime, setEndDateTime] = useState('');
   const [activeTab, setActiveTab] = useState('tab1');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageLong, setCurrentPageLong] = useState(10);
 
   const accordionItems = [
     {
@@ -33,6 +37,50 @@ export const Components = () => {
       title: 'Can I cancel my subscription?',
       content: 'Absolutely. You can cancel your subscription at any time from your account settings page. Your access will continue until the end of your billing period.'
     }
+  ];
+
+  interface UserData {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+    phone: string;
+    department: string;
+    lastLogin: string;
+    actions: string;
+  }
+
+  const tableData: UserData[] = [
+    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'Active', phone: '+1 (555) 123-4567', department: 'Engineering', lastLogin: '2023-10-25', actions: 'Edit | Delete' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'Editor', status: 'Active', phone: '+1 (555) 987-6543', department: 'Marketing', lastLogin: '2023-10-24', actions: 'Edit | Delete' },
+    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'Viewer', status: 'Inactive', phone: '+1 (555) 456-7890', department: 'Sales', lastLogin: '2023-09-15', actions: 'Edit | Delete' },
+    { id: 4, name: 'Alice Brown', email: 'alice@example.com', role: 'Viewer', status: 'Pending', phone: '+1 (555) 789-0123', department: 'HR', lastLogin: '-', actions: 'Edit | Delete' },
+  ];
+
+  const tableColumns: Column<UserData>[] = [
+    { key: 'name', header: 'User Name' },
+    { key: 'email', header: 'Email Address' },
+    { key: 'role', header: 'Role' },
+    { 
+      key: 'status', 
+      header: 'Status',
+      render: (value) => (
+        <span style={{ 
+          padding: '2px 8px', 
+          borderRadius: '12px', 
+          fontSize: '0.75rem',
+          backgroundColor: value === 'Active' ? '#dcfce7' : value === 'Inactive' ? '#f3f4f6' : '#fef9c3',
+          color: value === 'Active' ? '#166534' : value === 'Inactive' ? '#374151' : '#854d0e'
+        }}>
+          {value}
+        </span>
+      )
+    },
+    { key: 'phone', header: 'Phone Number' },
+    { key: 'department', header: 'Department' },
+    { key: 'lastLogin', header: 'Last Login' },
+    { key: 'actions', header: 'Actions', width: 120 },
   ];
 
   const tabsData = [
@@ -225,6 +273,46 @@ export const Components = () => {
              
              <h3 style={{ marginBottom: '0.5rem', fontSize: '1rem', color: '#666' }}>Allow Multiple Open</h3>
              <Accordion items={accordionItems} allowMultiple defaultExpanded={['item1']} />
+        </div>
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2 style={{ marginBottom: '1rem', fontSize: '1.25rem', borderBottom: '1px solid #eee', paddingBottom: '0.5rem' }}>Table</h2>
+        <h3 style={{ marginBottom: '0.5rem', fontSize: '1rem', color: '#666' }}>Scrollable Table Example</h3>
+        <p style={{ marginBottom: '1rem', fontSize: '0.875rem', color: '#888' }}>
+          This table mimics a wide data set. The container is restricted to 800px to demonstrate horizontal scrolling.
+        </p>
+        <div>
+             <Table 
+                title="User Management" 
+                columns={tableColumns} 
+                data={tableData} 
+             />
+        </div>
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2 style={{ marginBottom: '1rem', fontSize: '1.25rem', borderBottom: '1px solid #eee', paddingBottom: '0.5rem' }}>Pagination</h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+             <div>
+                <h3 style={{ marginBottom: '0.5rem', fontSize: '1rem', color: '#666' }}>Few Pages (≤ 5)</h3>
+                <Pagination 
+                  currentPage={currentPage}
+                  totalPages={5} 
+                  onPageChange={setCurrentPage} 
+                />
+                <p style={{ marginTop: '0.5rem', color: '#888', fontSize: '0.875rem' }}>Current Page: {currentPage}</p>
+             </div>
+
+             <div>
+                <h3 style={{ marginBottom: '0.5rem', fontSize: '1rem', color: '#666' }}>Many Pages (&gt; 5) with Ellipsis</h3>
+                <Pagination 
+                  currentPage={currentPageLong}
+                  totalPages={20} 
+                  onPageChange={setCurrentPageLong} 
+                />
+                 <p style={{ marginTop: '0.5rem', color: '#888', fontSize: '0.875rem' }}>Current Page: {currentPageLong}</p>
+             </div>
         </div>
       </section>
     </div>

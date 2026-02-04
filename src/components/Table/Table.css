@@ -1,0 +1,94 @@
+.table-wrapper {
+  /* Ensure the wrapper takes full width of its parent */
+  width: 100%;
+  max-width: 100%; /* Strict containment */
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden; /* Prevent border-radius clipping issues */
+  box-shadow: var(--shadow-sm);
+  
+  /* Use Grid for robust width containment */
+  display: grid;
+  grid-template-columns: 100%; /* Force single column */
+  grid-template-rows: auto 1fr; /* Title auto height, Table remaining */
+}
+
+/* ... title section ... */
+.table-title-section {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+  background-color: white;
+  
+  /* Grid item placement */
+  min-width: 0;
+}
+
+.table-title {
+  font-family: var(--font-family);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-responsive-container {
+  width: 100%;
+  /* This ensures the container scrolls if table exceeds this width */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  /* Critical for grid/flex children to allow scrolling instead of forcing width */
+  min-width: 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  text-align: left;
+}
+
+.data-table thead {
+  background-color: #f9fafb;
+}
+
+.data-table th {
+  padding: var(--spacing-md);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: var(--spacing-md);
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table-empty-state {
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--text-secondary);
+}
