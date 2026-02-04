@@ -23,9 +23,15 @@ The `src` directory must follow this structure:
 src/
 ├── assets/             # Static assets (global images, fonts)
 ├── components/         # GLOBAL shared components (UI Kit)
-│   ├── Button/         # Complex components can have their own folder
-│   ├── Input/
-│   └── Modal/
+│   ├── Button/         # Complex components SHOULD have their own folder
+│   │   ├── index.ts    # Export file
+│   │   ├── Button.tsx  # Component implementation
+│   │   └── Button.css  # Component styles
+│   ├── Table/
+│   │   ├── index.ts
+│   │   ├── Table.tsx
+│   │   └── Table.css
+│   └── ...
 ├── features/           # ★ CORE: Feature-based modules
 │   ├── auth/           # Example Feature: Authentication
 │   │   ├── api/        # API calls specific to Auth (login, logout)
@@ -75,12 +81,15 @@ src/
   - `src/routes/index.tsx` defines the main router.
   - Wrap protected routes with a `<ProtectedRoute>` component that checks authentication.
 
-#### 3.4 Styling
-- **Methodology**: Vanilla CSS / CSS Variables.
-- **Organization**:
-  - Global styles: `src/index.css`.
-  - Component styles: Use CSS Modules (`*.module.css`) or scoped CSS to avoid conflicts.
-- **Design System**: Use defined CSS variables for colors, spacing, and typography to ensure consistency.
+#### 3.4 Styling & Aesthetics
+- **Methodology**: Vanilla CSS with CSS Variables.
+  - Ensure **.css files** accompany their components in the same directory.
+  - Use `clsx` for conditional class names.
+- **Design Principles**:
+  - **Premium & Polished**: Use subtle hover effects, smooth transitions (`var(--transition-fast)`), and box shadows.
+  - **Responsiveness**: Handle mobile vs desktop distinctively (e.g., Horizontal Scroll List for Tables/Tabs on Desktop vs specialized Mobile views if needed).
+  - **Visual Cues**: Use strict overflow management and visual cues (e.g., fading edges) to indicate scrollable content without relying on visible scrollbars.
+- **Design System**: Use `src/index.css` variables for colors, spacing, and typography to ensure consistency.
 
 ### 4. Coding Conventions
 
@@ -88,6 +97,7 @@ src/
   - Components: `PascalCase.tsx` (e.g., `UserProfile.tsx`)
   - Hooks: `camelCase.ts` (e.g., `useAuth.ts`)
   - Utilities: `camelCase.ts` (e.g., `formatDate.ts`)
+  - Style Files: `PascalCase.css` (matching component name)
 - **Component Structure**:
   ```tsx
   // Imports
@@ -99,7 +109,9 @@ src/
     // Return JSX
   };
   ```
-- **Exports**: Use Named Exports (`export const ...`) over Default Exports to ensure better refactoring support.
+- **Exports**: Use Named Exports (`export const ...`) over Default Exports.
+- **Environment Variables**:
+  - Maintain a `.env.example` file that tracks required environment keys (without secrets).
 
 ---
 
@@ -121,9 +133,15 @@ src/
 src/
 ├── assets/             # 靜態資源 (全局圖片、字型)
 ├── components/         # 全局共用組件 (UI Kit)
-│   ├── Button/         # 複雜組件可擁有獨立資料夾
-│   ├── Input/
-│   └── Modal/
+│   ├── Button/         # 複雜組件應擁有獨立資料夾
+│   │   ├── index.ts    # 匯出與入口點
+│   │   ├── Button.tsx  # 組件實作
+│   │   └── Button.css  # 組件樣式
+│   ├── Table/
+│   │   ├── index.ts
+│   │   ├── Table.tsx
+│   │   └── Table.css
+│   └── ...
 ├── features/           # ★ 核心：功能模組
 │   ├── auth/           # 範例功能：身份驗證 (Authentication)
 │   │   ├── api/        # Auth 專屬的 API 請求 (login, logout)
@@ -173,12 +191,15 @@ src/
   - `src/routes/index.tsx` 定義主路由結構。
   - 使用 `<ProtectedRoute>` 組件包裹需要權限的路由，用以檢查登入狀態。
 
-#### 3.4 樣式 (Styling)
-- **方法論**: Vanilla CSS / CSS Variables。
-- **組織方式**:
-  - 全局樣式: `src/index.css`。
-  - 組件樣式: 使用 CSS Modules (`*.module.css`) 或 scoped CSS 以避免衝突。
-- **設計系統**: 使用定義好的 CSS 變數來管理顏色、間距和排版，確保一致性。
+#### 3.4 樣式與美學 (Styling & Aesthetics)
+- **方法論**: Vanilla CSS 搭配 CSS Variables。
+  - 確保 **.css 檔案** 與其組件位於同一目錄。
+  - 使用 `clsx` 處理條件式類別名稱。
+- **設計原則**:
+  - **精緻質感 (Premium & Polished)**: 使用細微的 Hover 效果、平滑的過渡動畫 (`var(--transition-fast)`) 與陰影。
+  - **響應式 (Responsiveness)**: 獨特處理 Mobile 與 Desktop 的體驗 (例如：Desktop 使用水平捲動列表，Mobile 可視情況使用下拉或相同邏輯)。
+  - **視覺提示 (Visual Cues)**: 嚴格管理 Overflow，並使用漸層邊緣 (fading edges) 等視覺提示來暗示可捲動內容，取代直接顯示醜陋的 Scrollbar。
+- **設計系統**: 使用 `src/index.css` 定義的變數來管理顏色、間距和排版，確保一致性。
 
 ### 4. 開發規範 (Coding Conventions)
 
@@ -186,6 +207,7 @@ src/
   - 組件: `PascalCase.tsx` (例如 `UserProfile.tsx`)
   - Hooks: `camelCase.ts` (例如 `useAuth.ts`)
   - 工具函式: `camelCase.ts` (例如 `formatDate.ts`)
+  - 樣式檔: `PascalCase.css` (與組件名稱對應)
 - **組件結構**:
   ```tsx
   // Imports
@@ -197,4 +219,6 @@ src/
     // Return JSX
   };
   ```
-- **導出 (Exports)**：優先使用具名導出 (`export const ...`)，避免使用預設導出 (Default Exports)，以利於重構。
+- **導出 (Exports)**：優先使用具名導出 (`export const ...`)，避免使用預設導出。
+- **環境變數 (Environment Variables)**:
+  - 維護一份 `.env.example` 檔案，記錄所有需要的環境變數名稱 (不包含機密值)。
