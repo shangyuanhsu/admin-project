@@ -1,0 +1,137 @@
+.tabs-container {
+  width: 100%;
+  position: relative;
+  /* Use max-width to ensure it never exceeds parent */
+  max-width: 100%;
+  /* Use Grid to enforce strict width containment for scrolling children */
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Safety to prevent page scrollbar */
+  overflow: hidden; 
+}
+
+/* Base styles for the list (Desktop) */
+.tabs-desktop-list {
+  display: flex;
+  align-items: center;
+  overflow-x: auto; /* Enable horizontal scroll */
+  white-space: nowrap; /* Prevent wrapping */
+  gap: var(--spacing-sm); 
+  border-bottom: 1px solid var(--border-color);
+  width: 100%; 
+  
+  /* Reset min-width to 0 to enable scrolling in grid/flex environments */
+  min-width: 0;
+
+  /* Add padding to the right for the fading/cut-off effect */
+  padding-right: var(--spacing-xl);
+  
+  /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+  
+  /* Ensure strict alignment */
+  box-sizing: border-box;
+  
+  /* Drag to scroll cursors */
+  cursor: grab;
+  user-select: none; /* Prevent text selection while dragging */
+}
+
+/* Fade effect on the right (applied dynamically) */
+.tabs-desktop-list.fade-mask {
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 100px), transparent 100%);
+  mask-image: linear-gradient(to right, black calc(100% - 100px), transparent 100%);
+}
+
+/* Grabbing state */
+.tabs-desktop-list.is-dragging {
+  cursor: grabbing;
+}
+
+/* Hide webkit scrollbar */
+.tabs-desktop-list::-webkit-scrollbar {
+  display: none; 
+}
+
+/* The tab button itself */
+.tab-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent; 
+  margin-bottom: -1px; 
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0; /* Keep buttons from shrinking */
+}
+
+.tab-button:hover:not(.active) {
+  color: var(--text-main);
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.tab-button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Mobile Select Styles */
+.tabs-mobile-select-wrapper {
+  display: none; /* Hidden by default */
+  position: relative;
+  width: 100%;
+}
+
+.tabs-select {
+  width: 100%;
+  padding: var(--spacing-md); 
+  padding-right: var(--spacing-xl); 
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--surface-color);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  appearance: none; 
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tabs-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(100, 190, 149, 0.2); 
+}
+
+.tabs-select-icon {
+  position: absolute;
+  right: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .tabs-desktop-list {
+    display: none;
+  }
+  
+  .tabs-mobile-select-wrapper {
+    display: block;
+  }
+}
