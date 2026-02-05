@@ -1,0 +1,8 @@
+.section {
+  margin-bottom: 3rem;
+}
+
+.formRow {
+  display: flex;
+  gap: 1rem;
+}

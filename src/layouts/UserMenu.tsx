@@ -55,7 +55,7 @@ export const UserMenu = () => {
           <button 
             className={menuStyles.menuItem} 
             onClick={() => {
-              console.log('Navigate to profile');
+              navigate('/edit-profile');
               setIsOpen(false);
             }}
           >
