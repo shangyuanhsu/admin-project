@@ -9,6 +9,7 @@ import { ScrollToTop } from '../components/ScrollToTop';
 const Login = lazy(() => import('../pages/auth/Login').then(module => ({ default: module.Login })));
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard').then(module => ({ default: module.Dashboard })));
 const Components = lazy(() => import('../pages/components/Components').then(module => ({ default: module.Components })));
+const EditProfile = lazy(() => import('../pages/edit-profile/EditProfile').then(module => ({ default: module.EditProfile })));
 const NotFound = lazy(() => import('../pages/NotFound').then(module => ({ default: module.NotFound })));
 
 // Root Layout to include global listeners like ScrollToTop
@@ -55,6 +56,14 @@ export const AppRoutes = () => {
               element: (
                 <Suspense fallback={<GlobalLoading />}>
                   <Components />
+                </Suspense>
+              ),
+            },
+            {
+              path: 'edit-profile',
+              element: (
+                <Suspense fallback={<GlobalLoading />}>
+                  <EditProfile />
                 </Suspense>
               ),
             },
